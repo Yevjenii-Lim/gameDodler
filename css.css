@@ -1,0 +1,20 @@
+.field {
+    width: 400px;
+    height: 600px;
+    background-color: green;
+    position: relative;
+}
+
+.dodo {
+    height: 60px;
+    width: 40px;
+    /* bottom: 0; */
+    position: absolute;
+    background-color: yellow;
+}
+.platform {
+    width: 40px;
+    height: 10px;
+    position: absolute;
+    background-color: brown;
+}
