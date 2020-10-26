@@ -6,11 +6,15 @@ let isGodown = true
 let location = []
 let dodoleft 
 let dodoBottom
-
-
-
+let jumping
+let stopInterval = setInterval(goDown, 10)
+let dodolevel
+let dodoJump
+dodo.style.left = 200+ 'px'
+console.log(dodo.style.left)
 dodo.classList.add('dodo')
 field.appendChild(dodo)
+
 class Platform {
     constructor(){
         this.left = Math.random() * 200
@@ -25,51 +29,103 @@ function createPlatform(){
         platform.style.left = location[i].left + 'px'
         platform.style.top = location[i].top + 'px'
         field.appendChild(platform) 
-        // location.push(platform)
-        // console.log(location)
+        
     }
   
 }
 // console.log(dodo.style)
 let dodoOnPlatform = setInterval(dodoStep, 10)
 function dodoStep() {
-    dodo.style.left = 150+ 'px'
+   
     dodoleft = parseInt(dodo.style.left) 
     dodoBottom = parseInt(dodo.style.top) + 60
-    // console.log(dodoleft + 40)
-    // console.log(+location[0].left.toFixed())
-    // dodoBottom == +location[i].top.toFixed()
     for(let i = 0 ; i < 5 ;i++) {
         if( (dodoleft >= +location[i].left.toFixed() 
           && dodoBottom == +location[i].top.toFixed() 
           && dodoleft < +location[i].left.toFixed() + 40) ||
-           dodoleft + 40 < +location[i].left.toFixed() + 40
+          (dodoleft + 40 < +location[i].left.toFixed() + 40
           && dodoleft < +location[i].left.toFixed() + 40
-          && dodoBottom == +location[i].top.toFixed()
+          && dodoBottom == +location[i].top.toFixed())
           ) {
             clearInterval(stopInterval)
-            clearInterval(dodoOnPlatform )
+            // clearInterval(dodoOnPlatform)
+            dodolevel =  parseInt(dodo.style.top)
+            dodoJump = dodolevel - 100
+            // jumping = setInterval(jump, 30)
+            // console.log(dodolevel)
+            // console.log(dodoJump)
         }
         //    console.log(location[i].top.toFixed())
         }
+    }
 if(dodoBottom == 600) {
-    clearInterval(dodoOnPlatform )
+    // clearInterval(dodoOnPlatform )
 }
-  
-    
-}
-function goDown() {
-if(isGodown){
-    // dodo.style.left = top + 'px'
+function jump() {
+    isGodown = false
+    // dodo.style.top = top + 'px'
+    top = top - 1
     dodo.style.top = top + 'px'
-    top = top + 1
-    if(dodo.style.top === '540px') {
-        clearInterval(stopInterval)
+    
+    // console.log(parseInt(dodo.style.top))
+    // console.log(dodoJump)
+    if(parseInt(dodo.style.top) === dodoJump) {
+        console.log('stop')
+    
+        clearInterval(jumping)
+        // isGodown = true
+        // setInterval(goDown, 10);
+
     }
 }
-}
+  
+function goDown() {
+    if(isGodown){
+            dodo.style.top = top + 'px'
+            top = top + 1
+            // console.log(top)
+        if(parseInt(dodo.style.top) >= 540) {
+                clearInterval(stopInterval)
+            }
+        }
 
-let stopInterval = setInterval(goDown, 20)
+    // dodoleft = parseInt(dodo.style.left) 
+    // dodoBottom = parseInt(dodo.style.top) + 60
+    // for(let i = 0 ; i < 5 ;i++) {
+    //     if( (dodoleft >= +location[i].left.toFixed() 
+    //       && dodoBottom == +location[i].top.toFixed() 
+    //       && dodoleft < +location[i].left.toFixed() + 40) ||
+    //       (dodoleft + 40 < +location[i].left.toFixed() + 40
+    //       && dodoleft < +location[i].left.toFixed() + 40
+    //       && dodoBottom == +location[i].top.toFixed())
+    //       ) {
+    //         clearInterval(stopInterval)
+    //         // clearInterval(dodoOnPlatform)
+    //         dodolevel =  parseInt(dodo.style.top)
+    //         dodoJump = dodolevel - 150
+    //         jumping = setInterval(jump, 10)
+    //         // console.log(dodolevel)
+    //         // console.log(dodoJump)
+    //     }
+    //     //    console.log(location[i].top.toFixed())
+    //     }
+    }
+
+    
+
+// function goDown() {
+// if(isGodown){
+//     dodo.style.top = top + 'px'
+//     top = top + 1
+//     dodoStep()
+//     // console.log(top)
+// if(parseInt(dodo.style.top) >= 540) {
+//         clearInterval(stopInterval)
+//     }
+// }
+
+// }
+
 
 createPlatform()
 
